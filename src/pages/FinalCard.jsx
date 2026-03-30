@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { QRCodeSVG } from 'qrcode.react';
 import { toPng, toJpeg, toSvg } from 'html-to-image';
+import confetti from 'canvas-confetti';
 import { getCurrentUser, getCardData } from '../utils/storage';
 import Template1 from '../components/Template1';
 import Template2 from '../components/Template2';
@@ -10,6 +11,19 @@ import Template4 from '../components/Template4';
 import Template5 from '../components/Template5';
 import Template6 from '../components/Template6';
 import Template7 from '../components/Template7';
+import Template8 from '../components/Template8';
+import Template9 from '../components/Template9';
+import Template10 from '../components/Template10';
+import Template11 from '../components/Template11';
+import Template12 from '../components/Template12';
+import Template13 from '../components/Template13';
+import Template14 from '../components/Template14';
+import Template15 from '../components/Template15';
+import Template16 from '../components/Template16';
+import Template17 from '../components/Template17';
+import Template18 from '../components/Template18';
+import Template19 from '../components/Template19';
+import Template20 from '../components/Template20';
 
 const templateComponents = {
     1: Template1,
@@ -18,7 +32,20 @@ const templateComponents = {
     4: Template4,
     5: Template5,
     6: Template6,
-    7: Template7
+    7: Template7,
+    8: Template8,
+    9: Template9,
+    10: Template10,
+    11: Template11,
+    12: Template12,
+    13: Template13,
+    14: Template14,
+    15: Template15,
+    16: Template16,
+    17: Template17,
+    18: Template18,
+    19: Template19,
+    20: Template20
 };
 
 /* ─── Inline styles (no external CSS dependency) ─────────────────────────── */
@@ -280,6 +307,34 @@ const FinalCard = () => {
             return;
         }
         setCardData(data);
+
+        // 🎉 Fire Celebration!
+        const duration = 3 * 1000;
+        const animationEnd = Date.now() + duration;
+        const defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 0 };
+
+        const randomInRange = (min, max) => Math.random() * (max - min) + min;
+
+        const interval = setInterval(function() {
+            const timeLeft = animationEnd - Date.now();
+
+            if (timeLeft <= 0) {
+                return clearInterval(interval);
+            }
+
+            const particleCount = 50 * (timeLeft / duration);
+            // since particles fall down, start a bit higher than random
+            confetti({ ...defaults, particleCount, origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 } });
+            confetti({ ...defaults, particleCount, origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 } });
+        }, 250);
+
+        // One big initial burst
+        confetti({
+            particleCount: 150,
+            spread: 70,
+            origin: { y: 0.6 },
+            colors: ['#7c3aed', '#2563eb', '#ffffff']
+        });
     }, []); // ✅ Runs once on mount only
 
     if (!cardData) {
@@ -367,16 +422,26 @@ const FinalCard = () => {
 
                     <div className="grid grid-2" style={{ gap: '2rem', alignItems: 'start' }}>
                         
-                        {/* Left: Card Preview */}
-                        <div className="card animate-scale-in" style={{ padding: '2.5rem' }}>
-                            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem' }}>
-                                <h3 style={{ fontSize: '1.2rem', opacity: 0.8 }}>Visual Preview</h3>
-                                <span style={{ fontSize: '0.75rem', background: 'var(--primary)', padding: '0.2rem 0.6rem', borderRadius: '4px', fontWeight: 700 }}>HIGH-RES</span>
+                        {/* Left: Card Preview Column */}
+                        <div>
+                            <div className="card-preview-container hero-mode animate-scale-in" style={{ marginBottom: '1.5rem' }}>
+                                <div style={{
+                                    position: 'absolute',
+                                    top: '15px',
+                                    left: '20px',
+                                    fontSize: '0.7rem',
+                                    textTransform: 'uppercase',
+                                    letterSpacing: '2px',
+                                    opacity: 0.3,
+                                    color: 'white'
+                                }}>Identity Preview</div>
+
+                                <div className="card-preview-scale" ref={cardRef}>
+                                    <TemplateComponent data={cardData} showQR={true} qrValue={vCardData} />
+                                </div>
                             </div>
-                            <div className="visiting-card-container" ref={cardRef} style={{ boxShadow: '0 20px 50px rgba(0,0,0,0.5)' }}>
-                                <TemplateComponent data={cardData} showQR={true} qrValue={vCardData} />
-                            </div>
-                            <div style={{ marginTop: '2.5rem', display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '1rem' }}>
+                            
+                            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '1rem' }}>
                                 <button onClick={handleDownloadPng} className="btn btn-outline" style={{ fontSize: '0.8rem' }}>Save PNG</button>
                                 <button onClick={handleDownloadJpg} className="btn btn-outline" style={{ fontSize: '0.8rem' }}>Save JPG</button>
                                 <button onClick={handleDownloadSvg} className="btn btn-outline" style={{ fontSize: '0.8rem' }}>Save SVG</button>

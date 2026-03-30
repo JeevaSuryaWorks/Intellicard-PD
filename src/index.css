@@ -137,9 +137,10 @@ p {
 .page-wrapper {
   min-height: 100vh;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: var(--spacing-lg);
+  padding: var(--spacing-xl) var(--spacing-md);
 }
 
 /* ==================== CARDS ==================== */
@@ -338,7 +339,7 @@ p {
 }
 
 .grid-3 {
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
 }
 
 /* ==================== UTILITIES ==================== */
@@ -536,6 +537,62 @@ p {
   box-shadow: var(--shadow-xl);
   position: relative;
   overflow: hidden;
+  flex-shrink: 0;
+  transform-origin: center center;
+}
+
+/* New Scaling Logic for Previews */
+.card-preview-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+  overflow: hidden;
+  background: rgba(0,0,0,0.15);
+  border-radius: var(--radius-md);
+  aspect-ratio: 1.6 / 1;
+  position: relative;
+}
+
+/* Expansion for Preview/Final Pages */
+.card-preview-container.hero-mode {
+  aspect-ratio: auto;
+  min-height: 450px;
+  background: radial-gradient(circle at center, rgba(102, 126, 234, 0.08) 0%, rgba(0,0,0,0.3) 100%);
+  padding: 4rem;
+}
+
+.card-preview-scale {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  /* Default scale for grid selection (TemplateSelect) */
+  transform: scale(0.62);
+}
+
+.hero-mode .card-preview-scale {
+  /* High-fidelity scale for full-page previews */
+  transform: scale(1);
+}
+
+/* Specific scale adjustments for the container system */
+@media (max-width: 1200px) {
+  .hero-mode .card-preview-scale { transform: scale(0.9); }
+  .card-preview-scale { transform: scale(0.55); }
+}
+
+@media (max-width: 768px) {
+  .hero-mode .card-preview-scale { transform: scale(0.7); }
+  .card-preview-scale { transform: scale(0.75); }
+  .card-preview-container.hero-mode { padding: 2rem; min-height: 350px; }
+}
+
+@media (max-width: 480px) {
+  .hero-mode .card-preview-scale { transform: scale(0.6); }
+  .card-preview-scale { transform: scale(0.62); }
+  .card-preview-container.hero-mode { padding: 1.5rem; min-height: 300px; }
 }
 
 /* ==================== QR CODE ==================== */

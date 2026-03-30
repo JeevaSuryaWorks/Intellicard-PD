@@ -8,6 +8,19 @@ import Template4 from '../components/Template4';
 import Template5 from '../components/Template5';
 import Template6 from '../components/Template6';
 import Template7 from '../components/Template7';
+import Template8 from '../components/Template8';
+import Template9 from '../components/Template9';
+import Template10 from '../components/Template10';
+import Template11 from '../components/Template11';
+import Template12 from '../components/Template12';
+import Template13 from '../components/Template13';
+import Template14 from '../components/Template14';
+import Template15 from '../components/Template15';
+import Template16 from '../components/Template16';
+import Template17 from '../components/Template17';
+import Template18 from '../components/Template18';
+import Template19 from '../components/Template19';
+import Template20 from '../components/Template20';
 
 const templateComponents = {
     1: Template1,
@@ -16,7 +29,20 @@ const templateComponents = {
     4: Template4,
     5: Template5,
     6: Template6,
-    7: Template7
+    7: Template7,
+    8: Template8,
+    9: Template9,
+    10: Template10,
+    11: Template11,
+    12: Template12,
+    13: Template13,
+    14: Template14,
+    15: Template15,
+    16: Template16,
+    17: Template17,
+    18: Template18,
+    19: Template19,
+    20: Template20
 };
 
 const Preview = () => {
@@ -69,29 +95,22 @@ const Preview = () => {
                         </p>
                     </div>
 
-                    <div className="card animate-scale-in" style={{ 
-                        padding: '4rem', 
-                        display: 'flex', 
-                        justifyContent: 'center', 
-                        background: 'rgba(255, 255, 255, 0.02)',
+                    <div className="card-preview-container hero-mode animate-scale-in" style={{ 
                         border: '1px solid var(--glass-border)',
-                        marginBottom: '3rem',
-                        position: 'relative'
+                        marginBottom: '3rem'
                     }}>
                         <div style={{
                             position: 'absolute',
-                            top: '10px',
+                            top: '15px',
                             left: '20px',
                             fontSize: '0.75rem',
                             textTransform: 'uppercase',
                             letterSpacing: '2px',
-                            opacity: 0.4
+                            opacity: 0.3,
+                            color: 'white'
                         }}>Digital Identity Card</div>
                         
-                        <div className="visiting-card-container" style={{ 
-                            transform: 'scale(1.1)',
-                            boxShadow: '0 30px 60px rgba(0,0,0,0.5)' 
-                        }}>
+                        <div className="card-preview-scale">
                             <TemplateComponent data={cardData} />
                         </div>
                     </div>
